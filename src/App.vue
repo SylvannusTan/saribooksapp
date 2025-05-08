@@ -26,21 +26,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from './lib/supabase'
-import { onMounted } from 'vue';
 
 const router = useRouter()
 const user = ref(null)
 
-async function setUser() {
+onMounted(async () => {
   const { data } = await supabase.auth.getUser()
   user.value = data?.user
-}
-
-onMounted(async () => {
-  await setUser()
 
   supabase.auth.onAuthStateChange(async (event, session) => {
     user.value = session?.user || null
