@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabase"
 import Auth from "../views/Auth.vue"
 import Dashboard from "../views/Dashboard.vue"
 import Profile from "../views/Profile.vue"
+import SharedBooks from "../views/SharedBooks.vue"
 
 const routes = [
   {
@@ -17,6 +18,12 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/shared",
+    name: "SharedBooks",
+    component: SharedBooks,
     meta: { requiresAuth: true },
   },
   {

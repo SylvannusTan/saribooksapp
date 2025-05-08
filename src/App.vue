@@ -3,7 +3,8 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-title>Sari Books App</v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn v-if="user" to="/dashboard" text>Dashboard</v-btn>
+      <v-btn v-if="user" to="/dashboard" text>My Books</v-btn>
+      <v-btn v-if="user" to="/shared" text>Shared Books</v-btn>
       <v-btn v-if="user" to="/profile" text>Profile</v-btn>
       <v-btn v-if="user" @click="handleSignOut" text>Sign Out</v-btn>
     </v-app-bar>
@@ -39,13 +40,11 @@ async function setUser() {
 }
 
 onMounted(async () => {
-  // Set initial user state
   await setUser()
 
-  // Listen for auth state changes
   supabase.auth.onAuthStateChange(async (event, session) => {
     user.value = session?.user || null
-    
+
     if (event === 'SIGNED_IN' && user.value) {
       router.push('/dashboard')
     } else if (event === 'SIGNED_OUT') {
