@@ -1,28 +1,8 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-app-bar-title>Sari Books App</v-app-bar-title>
-      <v-spacer></v-spacer>
-      <v-btn v-if="user" to="/dashboard" text>My Books</v-btn>
-      <v-btn v-if="user" to="/shared" text>Shared Books</v-btn>
-      <v-btn v-if="user" to="/profile" text>Profile</v-btn>
-      <v-btn v-if="user" @click="handleSignOut" text>Sign Out</v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <v-container fluid>
-        <router-view />
-      </v-container>
-    </v-main>
-
-    <v-footer app color="primary" dark>
-      <v-row justify="center" no-gutters>
-        <v-col class="text-center" cols="12">
-          {{ new Date().getFullYear() }} — <strong>Sari Books App</strong>
-        </v-col>
-      </v-row>
-    </v-footer>
-  </v-app>
+  <div class="container">
+    <h1>Sari Books App</h1>
+    <p>Welcome to the Sari Books App! This is a minimal version to ensure proper deployment.</p>
+  </div>
 </template>
 
 <script setup>
@@ -33,9 +13,13 @@ import { supabase } from './lib/supabase'
 const router = useRouter()
 const user = ref(null)
 
-onMounted(async () => {
+const setUser = async () => {
   const { data } = await supabase.auth.getUser()
   user.value = data?.user
+}
+
+onMounted(async () => {
+  await setUser()
 
   supabase.auth.onAuthStateChange(async (event, session) => {
     user.value = session?.user || null
@@ -57,3 +41,17 @@ const handleSignOut = async () => {
   }
 }
 </script>
+
+<style>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #1976D2;
+}
+</style>
