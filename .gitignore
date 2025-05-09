@@ -10,7 +10,8 @@ node_modules
 
 # production
 /build
-dist
+# Uncomment the line below to include dist directory
+# dist
 
 # debug
 npm-debug.log*
