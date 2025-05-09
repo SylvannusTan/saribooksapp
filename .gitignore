@@ -10,8 +10,7 @@ node_modules
 
 # production
 /build
-# Uncomment the line below to include dist directory
-# dist
+# dist - commented out to include dist in git
 
 # debug
 npm-debug.log*
@@ -20,7 +19,10 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel

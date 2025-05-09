@@ -30,7 +30,6 @@
                 item-title="name"
                 item-value="id"
                 label="Category"
-                required
               ></v-select>
               
               <v-textarea
@@ -286,8 +285,8 @@ const addBook = async () => {
     loading.value = true
     errorMsg.value = ''
     
-    if (!newBook.value.title || !newBook.value.author || !newBook.value.category_id) {
-      throw new Error('Title, author, and category are required')
+    if (!newBook.value.title || !newBook.value.author) {
+      throw new Error('Title and author are required')
     }
     
     const { data: userData } = await supabase.auth.getUser()
